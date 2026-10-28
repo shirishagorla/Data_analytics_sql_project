@@ -1,0 +1,80 @@
+/*
+===============================================================================
+Script Purpose:
+    This script creates the database and table structures for the analytics 
+    layer (`datawarehouse_analytics`). It defines the schema for the dimension 
+    and fact tables (`gold_dim_customers`, `gold_dim_products`, and `gold_fact_sales`) 
+    ready to store modeled data for reporting and analysis.
+
+Database Created:
+    - datawarehouse_analytics
+
+Tables Created:
+    - gold_dim_customers: Customer dimension table.
+    - gold_dim_products: Product dimension table.
+    - gold_fact_sales: Sales fact table.
+
+Usage:
+    Run this script to set up the analytics database structure from scratch.
+===============================================================================
+*/
+
+-- ============================================================================
+-- Create Database
+-- ============================================================================
+CREATE DATABASE datawarehouse_analytics;
+GO
+
+USE datawarehouse_analytics;
+GO
+
+-- ============================================================================
+-- Create Dimension Tables
+-- ============================================================================
+
+-- 1. Customer Dimension Table
+CREATE TABLE gold_dim_customers (
+    customer_key INT,
+    customer_id INT,
+    customer_number NVARCHAR(50),
+    first_name NVARCHAR(50),
+    last_name NVARCHAR(50),
+    country NVARCHAR(50),
+    marital_status NVARCHAR(50),
+    gender NVARCHAR(50),
+    birthdate DATE,
+    create_date DATE
+);
+
+-- 2. Product Dimension Table
+CREATE TABLE gold_dim_products (
+    product_key INT,
+    product_id INT,
+    product_number NVARCHAR(50),
+    product_name NVARCHAR(50),
+    category_id NVARCHAR(50),
+    category NVARCHAR(50),
+    subcategory NVARCHAR(50),
+    maintenance NVARCHAR(50),
+    cost INT,
+    product_line NVARCHAR(50),
+    start_date DATE
+);
+
+
+-- ============================================================================
+-- Create Fact Tables
+-- ============================================================================
+
+-- 3. Sales Fact Table
+CREATE TABLE gold_fact_sales (
+    order_number NVARCHAR(50),
+    product_key INT,
+    customer_key INT,
+    order_date DATE,
+    shipping_date DATE,
+    due_date DATE,
+    sales_amount INT,
+    quantity TINYINT,
+    price INT
+);
